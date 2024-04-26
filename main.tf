@@ -117,15 +117,14 @@ resource "azurerm_linux_virtual_machine" "mtc-vm" {
 
   source_image_reference {
     publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "18.04-LTS"
+    offer     = "0001-com-ubuntu-server-focal"
+    sku       = "20_04-lts"
     version   = "latest"
   }
-
   provisioner "local-exec" {
     command = templatefile("win-ssh-script.tpl", {
-      hostname      = self.public_ip_address, 
-      user          = "mtcadmin",
+      hostname     = self.public_ip_address,
+      user         = "mtcadmin",
       identityfile = "~/.ssh/mtc-vm-key"
     })
     interpreter = ["Powershell", "-Command"]
